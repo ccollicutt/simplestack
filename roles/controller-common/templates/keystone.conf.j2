@@ -1469,37 +1469,38 @@ connection = mysql://keystone:{{ keystone_mysql_password }}@127.0.0.1/keystone
 
 # Toggle for SSL support on the Keystone eventlet servers.
 # (boolean value)
-#enable=false
+
+enable=True
 
 # Path of the certfile for SSL. For non-production
 # environments, you may be interested in using `keystone-
 # manage ssl_setup` to generate self-signed certificates.
 # (string value)
-#certfile=/etc/keystone/ssl/certs/keystone.pem
+certfile=/etc/keystone/ssl/certs/keystone.pem
 
 # Path of the keyfile for SSL. (string value)
-#keyfile=/etc/keystone/ssl/private/keystonekey.pem
+keyfile=/etc/keystone/ssl/private/keystonekey.pem
 
 # Path of the ca cert file for SSL. (string value)
 #ca_certs=/etc/keystone/ssl/certs/ca.pem
 
 # Path of the CA key file for SSL. (string value)
-#ca_key=/etc/keystone/ssl/private/cakey.pem
+ca_key=/etc/keystone/ssl/private/cakey.pem
 
 # Require client certificate. (boolean value)
-#cert_required=false
+cert_required=false
 
 # SSL key length (in bits) (auto generated certificate).
 # (integer value)
-#key_size=1024
+key_size=1024
 
 # Days the certificate is valid for once signed (auto
 # generated certificate). (integer value)
-#valid_days=3650
+valid_days=3650
 
 # SSL certificate subject (auto generated certificate).
 # (string value)
-#cert_subject=/C=US/ST=Unset/L=Unset/O=Unset/CN=localhost
+cert_subject=/C=US/ST=Unset/L=Unset/O=Unset/CN=localhost
 
 
 [stats]

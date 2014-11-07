@@ -1,0 +1,15 @@
+---
+
+# FIXME: changed when?
+- name: add internal ip address alias
+  command: ip addr add {{ keystone_internal_ip }}/24 broadcast 10.1.10.255 dev eth2
+  register: internal_ip
+  changed_when: internal_ip.rc != 2
+  ignore_errors: True
+
+# FIXME: changed when?
+- name: add internal ip address alias
+  command: ip addr add {{ keystone_external_ip }}/24 broadcast 192.168.10.255 dev eth1
+  register: external_ip
+  changed_when: external_ip.rc != 2
+  ignore_errors: True

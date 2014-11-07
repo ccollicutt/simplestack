@@ -4,6 +4,10 @@
   roles:
     - common
 
-- hosts: controller
+- hosts: controller-common
   roles:
-    - keystone
+    - controller-common
+
+- hosts: controller-primary
+  roles:
+    - controller-primary

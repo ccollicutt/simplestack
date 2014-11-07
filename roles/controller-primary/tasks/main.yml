@@ -1,0 +1,8 @@
+---
+
+
+- include: ip.yml
+- include: keystone-db.yml
+- include: keystone-ssl.yml
+- include: keystone-endpoints.yml
+- include: keystone-tenants.yml

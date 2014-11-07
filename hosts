@@ -1,5 +1,11 @@
-[controller]
+[controller-common]
 10.1.10.11
+10.1.10.12
+
+[controller-primary]
+10.1.10.11
+
+[controller-secondary]
 10.1.10.12
 
 [compute]

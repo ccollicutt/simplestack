@@ -29,3 +29,9 @@ curtis$ mkdir library
 curtis$ cd library
 curtis$ git clone https://github.com/openstack-ansible/openstack-ansible-modules.git
 ```
+Then install OpenStack clients client.
+
+```bash
+curtis$ sudo apt-get install python-dev
+curtis$ sudo pip install python-novaclient
+```
