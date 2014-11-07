@@ -1,0 +1,8 @@
+---
+
+packages:
+  - keystone
+  - python-keyring
+  - mysql-server
+  - python-mysqldb
+  - rabbitmq-server

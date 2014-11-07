@@ -1,0 +1,5 @@
+.vagrant
+library/openstack-ansible-modules
+group_vars/keystone
+group_vars/all
+TODO.md

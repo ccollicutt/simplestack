@@ -1,0 +1,12 @@
+---
+
+# FIXME: Must be a better way...
+- name: check if juno apt repository is already installed
+  command: ls /etc/apt/sources.list.d/cloudarchive-juno.list
+  register: juno_repo_installed
+  ignore_errors: True
+  changed_when: False
+
+- name: ensure the juno apt repository is configured
+  command: add-apt-repository -y cloud-archive:juno
+  when: juno_repo_installed.rc != 0
