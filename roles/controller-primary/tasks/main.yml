@@ -2,7 +2,16 @@
 
 
 - include: ip.yml
-- include: keystone-db.yml
-- include: keystone-ssl.yml
-- include: keystone-endpoints.yml
-- include: keystone-tenants.yml
+
+- include: mysql-server.yml
+
+
+- include: keystone/db.yml
+#- include: keystone/ssl.yml
+- include: keystone/endpoints.yml
+- include: keystone/tenants.yml
+- include: keystone/test.yml
+
+- include: glance/endpoint.yml
+- include: glance/db.yml
+- include: glance/user.yml

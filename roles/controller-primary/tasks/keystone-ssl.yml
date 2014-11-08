@@ -1,5 +1,0 @@
----
-
-- debug: msg="next up"
-
-#keystone-manage ssl_setup --keystone-user keystone

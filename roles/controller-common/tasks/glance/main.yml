@@ -1,0 +1,24 @@
+---
+
+- name: install configuration files from templates
+  template: >
+    src=roles/controller-common/templates/{{ item }}.j2
+    dest=/etc/glance/{{ item }}
+    owner=root
+    group=root
+    mode=0644
+  register: glance_conf
+  with_items:
+    - glance-api-paste.ini
+    - glance-api.conf
+    - glance-registry-paste.ini
+    - glance-registry.conf
+
+- name: restart glance
+  service: >
+    name={{ item }}
+    state=restarted
+  when: glance_conf.changed
+  with_items:
+    - glance-registry
+    - glance-api

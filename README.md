@@ -34,4 +34,5 @@ Then install OpenStack clients client.
 ```bash
 curtis$ sudo apt-get install python-dev
 curtis$ sudo pip install python-novaclient
+curtis$ sudo pip install python-glanceclient
 ```

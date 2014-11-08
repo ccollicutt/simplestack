@@ -1,0 +1,39 @@
+- name: create glance database
+  mysql_db: >
+    name=glance
+    state=present
+  register: glance_db
+
+- name: create glance mysql user
+  mysql_user: >
+    name=glance
+    password={{ glance_mysql_password }}
+    host="%"
+    priv=glance.*:ALL
+    state=present
+
+- name: sync glance database
+  glance_manage: action=dbsync
+  when: glance_db.changed
+
+- name: restart glance
+  service: >
+    name={{ item }}
+    state=restarted
+  with_items:
+    - glance-registry
+    - glance-api
+  when: glance_db.changed
+
+- name: ensure glance services are running
+  service: >
+    name={{ item }}
+    state=running
+  with_items:
+    - glance-registry
+    - glance-api
+
+- name: ensure glance sqlite is deleted
+  file: >
+    dest=/var/lib/glance/glance.sqlite
+    state=absent

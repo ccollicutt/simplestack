@@ -8,4 +8,5 @@
     cache_valid_time=3600
   with_items: packages
 
-- include: keystone.yml
+- include: keystone/main.yml
+- include: glance/main.yml

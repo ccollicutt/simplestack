@@ -1,0 +1,33 @@
+---
+
+- name: install keystone.conf file from template
+  template: >
+    src=roles/controller-common/templates/keystone.conf.j2
+    dest=/etc/keystone/keystone.conf
+    owner=root
+    group=root
+    mode=0644
+  register: keystone_conf
+
+- name: check if ssl_setup has already been run
+  command: ls /etc/keystone/ssl/private/keystonekey.pem
+  register: ssl_setup
+  changed_when: False
+  ignore_errors: True
+
+- name: setup ssl using keystone-manage
+  command: keystone-manage ssl_setup \
+    --keystone-user keystone \
+    --keystone-group keystone
+  when: ssl_setup.rc != 0
+
+- name: restart keystone
+  service: >
+    name=keystone
+    state=restarted
+  when: keystone_conf.changed
+
+# FIXME: wait for port
+- name: pause for keystone to come up
+  pause: seconds=5
+  when: keystone_conf.changed

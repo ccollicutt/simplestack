@@ -57,7 +57,7 @@
 # Keystone create and apply roles
 #
 
-- name: create an admin role and add the admin to it
+- name: create an admin role
   keystone_user: >
     token={{ keystone_admin_token }}
     role={{ keystone_admin_role }}
@@ -65,9 +65,10 @@
     tenant={{ keystone_admin_tenant }}
     endpoint="https://127.0.0.1:35357/v2.0"
 
-- name: create an admin role and add the admin to it
+- name: add keystone admin to admin role
   keystone_user: >
     token={{ keystone_admin_token }}
     role={{ keystone_admin_role }}
-    user=ec2 tenant=service
+    user=ec2
+    tenant=service
     endpoint="https://127.0.0.1:35357/v2.0"

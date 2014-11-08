@@ -1,0 +1,13 @@
+---
+
+- name: test keystone admin user access to catalog
+  command: keystone --insecure \
+    --os-username={{ keystone_admin_user }} \
+    --os-password={{ keystone_admin_user_password }} \
+    --os-tenant-name={{ keystone_admin_tenant }} \
+    --os-auth-url=https://{{ keystone_external_ip }}:35357/v2.0 \
+    {{ item }}
+  changed_when: False
+  with_items:
+    - catalog
+    - user-list

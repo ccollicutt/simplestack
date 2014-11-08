@@ -4,11 +4,12 @@
   mysql_db: >
     name=keystone
     state=present
-  register: keystone
+  register: keystone_db
 
 - name: create keystone mysql user
   mysql_user: >
     name=keystone
+    host="%"
     password={{ keystone_mysql_password }}
     priv=keystone.*:ALL
     state=present
@@ -16,15 +17,20 @@
 - name: sync keystone database
   #command: keystone-manage db_sync
   keystone_manage: action=dbsync
-  when: keystone.changed
+  when: keystone_db.changed
 
 - name: restart keystone
   service: >
     name=keystone
     state=restarted
-  when: keystone.changed
+  when: keystone_db.changed
 
-- name: ensure keystone keystone is running
+# FIXME: wait for port
+- name: pause for keystone to come up
+  pause: seconds=5
+  when: keystone_db.changed
+
+- name: ensure keystone is running
   service: >
     name=keystone
     state=running
