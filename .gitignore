@@ -4,3 +4,4 @@ group_vars/controller-common
 group_vars/all
 TODO.md
 NOTES.md
+*.img
