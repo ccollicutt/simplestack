@@ -22,14 +22,8 @@
   service: >
     name={{ item }}
     state=restarted
-  with_items:
-    - nova-api
-    - nova-cert
-    - nova-consoleauth
-    - nova-scheduler
-    - nova-conductor
-    - nova-novncproxy
-#    - nova-console
+  with_items: nova_controller_services
+
   when: nova_conf.changed or nova_api_conf.changed
 
 # FIXME: not sure about all these services...
@@ -37,14 +31,7 @@
   service: >
     name={{ item }}
     state=running
-  with_items:
-    - nova-api
-    - nova-cert
-    - nova-consoleauth
-    - nova-scheduler
-    - nova-conductor
-    - nova-novncproxy
-#    - nova-console
+  with_items: nova_controller_services
 
 # FIXME: wait for ports?
 - name: pause for nova services

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export OS_USERNAME={{ keystone_test_user }}
+export OS_PASSWORD={{ keystone_test_user_password }}
+export OS_TENANT_NAME=demo
+export OS_AUTH_URL=https://{{ keystone_internal_ip}}:35357/v2.0
+# The following lines can be omitted
+#export OS_TENANT_ID=admin
+export OS_REGION_NAME={{ keystone_region }}
+
+echo "INFO: Setting nova, keystone, glance with --insecure"
+alias nova='nova --insecure'
+alias keystone='keystone --insecure'
+alias glance='glance --insecure'

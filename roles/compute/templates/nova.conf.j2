@@ -1,4 +1,5 @@
 [DEFAULT]
+
 logdir=/var/log/nova
 state_path=/var/lib/nova
 lock_path=/var/lock/nova
@@ -11,24 +12,41 @@ verbose=True
 rpc_backend = nova.rpc.impl_kombu
 rabbit_host = {{ keystone_internal_ip }}
 
-# FIXME!
+# FIXME: bad password/login
 rabbit_password = guest
 rabbit_userid = guest
 
 my_ip = {{ ansible_eth2.ipv4.address }}
 vncserver_listen = 0.0.0.0
+# FIXME: eth1? seems to be removing eth2 ip...
 vncserver_proxyclient_address = {{ ansible_eth2.ipv4.address }}
 novncproxy_base_url = http://{{ keystone_internal_ip }}:6080/vnc_auto.html
 glance_host = {{ keystone_internal_ip }}
 auth_strategy=keystone
 
+# FIXME: not sure? was getting an error without it...
+dhcpbridge = /usr/bin/nova-dhcpbridge
+dhcpbridge_flagfile=/etc/nova/nova.conf
+# END FIXME
+
 #
 # Network
 #
 
-# http://docs.openstack.org/juno/install-guide/install/apt/content/nova-networking-controller-node.html
 network_api_class = nova.network.api.API
 security_group_api = nova
+firewall_driver = nova.virt.libvirt.firewall.IptablesFirewallDriver
+network_manager = nova.network.manager.FlatDHCPManager
+network_size = 254
+allow_same_net_traffic = False
+multi_host = True
+send_arp_for_ha = True
+share_dhcp_address = True
+force_dhcp_release = True
+flat_network_bridge = br100
+# FIXME: correct interfaces?
+flat_interface = eth3
+public_interface = eth1
 
 vif_plugging_is_fatal: false
 vif_plugging_timeout: 0

@@ -1,0 +1,55 @@
+---
+
+- hosts: controller-primary
+
+  tasks:
+
+  - name: generate keypair for demo user
+    shell: ssh-keygen -f /home/vagrant/.ssh/id_rsa -t rsa -N ''
+    args:
+      creates: /home/vagrant/.ssh/id_rsa
+    register: ssh_key
+
+  - name: check if demo keypair is already installed
+    shell: . /home/vagrant/testrc && nova --insecure \
+      keypair-list | grep demo-key
+    register: demo_key
+    ignore_errors: True
+    changed_when: False
+
+  - name: import ssh public key
+    shell: . /home/vagrant/testrc && nova --insecure \
+      keypair-add \
+      --pub-key /home/vagrant/.ssh/id_rsa.pub \
+      demo-key
+    when: ssh_key.changed or demo_key.changed != 0
+
+  - name: check if cirros image is already installed
+    shell: . /home/vagrant/adminrc && glance --insecure \
+      image-list | grep Cirros
+    register: cirros_image
+    ignore_errors: True
+
+  - name: install cirros image
+    shell: . /home/vagrant/adminrc && glance --insecure \
+      image-create \
+      --name Cirros \
+      --is-public true \
+      --container-format bare \
+      --disk-format qcow2 \
+      --file /vagrant/cirros-0.3.0-x86_64-disk.img
+    when: cirros_image.rc != 0
+
+  - name: check if demo-net is already installed
+    shell: . /home/vagrant/adminrc && nova --insecure \
+      net-list | grep flatnet
+    register: demo_net
+    ignore_errors: True
+
+  - name: setup initial network
+    shell: . /home/vagrant/adminrc && nova --insecure \
+     network-create flatnet \
+     --bridge br100 \
+     --multi-host T \
+     --fixed-range-v4 192.168.99.32/27
+    when: demo_net.rc != 0

@@ -9,6 +9,7 @@ boxes = [
         :name => :controller01,
         :pubip => '192.168.10.11',
         :intip => '10.1.10.11',
+        :flatip => '192.168.99.11',
         :box => 'ubuntu/trusty64',
         :vbox_config => [
             { '--memory' => '2048' }
@@ -18,6 +19,7 @@ boxes = [
         :name => :controller02,
         :pubip => '192.168.10.12',
         :intip => '10.1.10.12',
+        :flatip => '192.168.99.12',
         :box => 'ubuntu/trusty64',
         :vbox_config => [
             { '--memory' => '2048' }
@@ -27,6 +29,7 @@ boxes = [
         :name => :compute01,
         :pubip => '192.168.10.21',
         :intip => '10.1.10.21',
+        :flatip => '192.168.99.21',
         :box => 'ubuntu/trusty64',
         :vbox_config => [
             { '--memory' => '2048' }
@@ -49,6 +52,7 @@ Vagrant.configure("2") do |config|
             config.vm.box = opts[:box]
             config.vm.network :private_network, ip: opts[:pubip]
             config.vm.network :private_network, ip: opts[:intip]
+            config.vm.network :private_network, ip: opts[:flatip]
             config.ssh.forward_agent = true
 
             # VirtualBox customizations
@@ -63,8 +67,6 @@ Vagrant.configure("2") do |config|
                     end
                 end
             end
-    end
-
-
+        end
     end
 end

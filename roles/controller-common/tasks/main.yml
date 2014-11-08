@@ -12,10 +12,13 @@
 - include: glance/main.yml
 - include: nova/main.yml
 
-- name: install adminrc file
+- name: install rc files
   template: >
-    src=adminrc.j2
-    dest=/home/vagrant/adminrc
+    src={{ item }}.j2
+    dest=/home/vagrant/{{ item }}
     owner=vagrant
     group=vagrant
     mode=0640
+  with_items:
+    - adminrc
+    - testrc

@@ -2,3 +2,12 @@
 
 - include: ntp.yml
 - include: juno-repo.yml
+
+# http://docs.openstack.org/juno/install-guide/install/apt/content/ch_basic_environment.html#basics-networking-nova
+- name: install a /etc/hosts file
+  template: >
+    src=etc_hosts.j2
+    dest=/etc/hosts
+    owner=root
+    group=root
+    mode=0644

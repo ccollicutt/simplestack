@@ -30,17 +30,7 @@ auth_strategy=keystone
 # http://docs.openstack.org/juno/install-guide/install/apt/content/nova-networking-compute-node.html
 network_api_class = nova.network.api.API
 security_group_api = nova
-firewall_driver = nova.virt.libvirt.firewall.IptablesFirewallDriver
-network_manager = nova.network.manager.FlatDHCPManager
-network_size = 254
-allow_same_net_traffic = False
-multi_host = True
-send_arp_for_ha = True
-share_dhcp_address = True
-force_dhcp_release = True
-flat_network_bridge = br100
-flat_interface = eth1
-public_interface = eth2
+
 
 vif_plugging_is_fatal: false
 vif_plugging_timeout: 0
