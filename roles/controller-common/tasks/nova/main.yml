@@ -1,0 +1,43 @@
+
+- name: install nova.conf file from template
+  template: >
+    src=roles/controller-common/templates/nova.conf.j2
+    dest=/etc/nova/nova.conf
+    owner=nova
+    group=nova
+    mode=0644
+  register: nova_conf
+
+# FIXME: not sure about all these services...
+- name: restart nova services
+  service: >
+    name={{ item }}
+    state=restarted
+  with_items:
+    - nova-api
+    - nova-cert
+    - nova-consoleauth
+    - nova-scheduler
+    - nova-conductor
+    - nova-novncproxy
+#    - nova-console
+  when: nova_conf.changed
+
+# FIXME: not sure about all these services...
+- name: ensure nova services are running
+  service: >
+    name={{ item }}
+    state=running
+  with_items:
+    - nova-api
+    - nova-cert
+    - nova-consoleauth
+    - nova-scheduler
+    - nova-conductor
+    - nova-novncproxy
+#    - nova-console
+
+# FIXME: wait for ports?
+- name: pause for nova services
+  pause: seconds=5
+  when: nova_conf.changed

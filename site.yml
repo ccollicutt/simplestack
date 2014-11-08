@@ -11,3 +11,7 @@
 - hosts: controller-primary
   roles:
     - controller-primary
+
+- hosts: compute
+  roles:
+    - compute

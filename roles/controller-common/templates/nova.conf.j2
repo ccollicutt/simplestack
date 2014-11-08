@@ -1,0 +1,53 @@
+[DEFAULT]
+logdir=/var/log/nova
+state_path=/var/lib/nova
+lock_path=/var/lock/nova
+force_dhcp_release=True
+iscsi_helper=tgtadm
+libvirt_use_virtio_for_bridges=True
+connection_type=libvirt
+root_helper=sudo nova-rootwrap /etc/nova/rootwrap.conf
+verbose=True
+rpc_backend = nova.rpc.impl_kombu
+rabbit_host = {{ keystone_internal_ip }}
+rabbit_password = rabbit
+my_ip = {{ keystone_internal_ip }}
+vncserver_listen = {{ keystone_internal_ip }}
+vncserver_proxyclient_address = {{ keystone_internal_ip }}
+novncproxy_base_url=http://{{ keystone_internal_ip }}:6080/vnc_auto.html
+glance_host = {{ keystone_internal_ip }}
+auth_strategy=keystone
+
+#
+# Network
+#
+
+# http://docs.openstack.org/juno/install-guide/install/apt/content/nova-networking-compute-node.html
+network_api_class = nova.network.api.API
+security_group_api = nova
+firewall_driver = nova.virt.libvirt.firewall.IptablesFirewallDriver
+network_manager = nova.network.manager.FlatDHCPManager
+network_size = 254
+allow_same_net_traffic = False
+multi_host = True
+send_arp_for_ha = True
+share_dhcp_address = True
+force_dhcp_release = True
+flat_network_bridge = br100
+flat_interface = eth1
+public_interface = eth2
+
+vif_plugging_is_fatal: false
+vif_plugging_timeout: 0
+
+[database]
+connection = mysql://nova:{{ nova_mysql_password}}@{{ keystone_internal_ip }}/nova
+
+[keystone_authtoken]
+auth_uri = http://{{ keystone_internal_ip }}:5000
+auth_host = {{ keystone_internal_ip }}
+auth_port = 35357
+auth_protocol = https
+admin_tenant_name = service
+admin_user = {{ nova_admin_user }}
+admin_password = {{ nova_admin_user_password }}

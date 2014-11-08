@@ -15,3 +15,5 @@
 - include: glance/endpoint.yml
 - include: glance/db.yml
 - include: glance/user.yml
+
+- include: nova/db.yml

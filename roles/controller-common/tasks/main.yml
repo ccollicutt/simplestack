@@ -10,3 +10,4 @@
 
 - include: keystone/main.yml
 - include: glance/main.yml
+- include: nova/main.yml

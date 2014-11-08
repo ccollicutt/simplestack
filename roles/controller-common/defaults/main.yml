@@ -8,3 +8,10 @@ packages:
   - rabbitmq-server
   - glance
   - python-glanceclient
+  - nova-api
+  - nova-cert
+  - nova-conductor
+  - nova-consoleauth
+  - nova-novncproxy
+  - nova-scheduler
+  - python-novaclient

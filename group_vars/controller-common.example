@@ -1,11 +1,6 @@
 ---
 
-#
-# Keystone
-#
 
-keystone_internal_ip: 10.1.10.10
-keystone_external_ip: 192.168.10.10
 
 #
 # Keystone region
