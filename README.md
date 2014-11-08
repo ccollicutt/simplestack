@@ -23,11 +23,18 @@ I'm using the ```vagrant-cachier``` plugin, but you don't have to; could comment
 
 My home workstation is fairly powerful, with 8 cores and 32GB of main memory, as well as an SSD. A smaller host might have trouble with multiple virtual machines, but probably not.
 
+## Clone this repo
+
+```bash
+curtis$ git clone git@github.com:ccollicutt/ansible-openstack-juno.git
+```
+
 ## OpenStack Ansible modules
 
 I use [these great modules](https://github.com/openstack-ansible).
 
 ```bash
+curtis$ cd ansible-openstack-juno
 curtis$ mkdir library
 curtis$ cd library
 curtis$ git clone https://github.com/openstack-ansible/openstack-ansible-modules.git
@@ -54,10 +61,15 @@ Now that the basic infrastructure is up, we can add the cirros image and a coupl
 
 ```bash
 curtis$ wget http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
-curtis$ ansible-playbook setup.yml # this will install that image via glance, add some ssh keys (not really needed), and a default network called "flatnet"
 ```
 
-Finally we can login to the controller and start a vm. You don't have to login to the controller, but I have put the ```adminrc``` and ```testrc``` files there to easily source an the OpenStack variables.
+Now that we have the cirros image, we can run the short setup playbook. This will install the cirros image via glance, add some ssh keys (not really needed though), and a default network called "flatnet" (which sounds mathematica).
+
+```bash
+curtis$ ansible-playbook setup.yml
+```
+
+Finally we can login to the controller and start an instance. You don't have to login to the controller, but I have put the ```adminrc``` and ```testrc``` files there to easily source an the OpenStack variables.
 
 ```bash
 curtis$ ssh 10.1.10.11 # need to setup your .ssh/config to use the right user and private key
