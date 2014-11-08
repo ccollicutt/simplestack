@@ -5,7 +5,7 @@ For now this playbook sets up a small OpenStack system with:
 * 1x controller
 * 2x compute nodes
 
-It uses flat networking.
+It does not use Neutron, so "legacy" nova-network, and uses flat dhcp networking.
 
 ## Getting started
 
@@ -45,7 +45,7 @@ curtis$ sudo pip install python-glanceclient
 
 ```bash
 curtis$ vagrant up
-# wait
+# wait...
 curtis$ ansible-playbook site.yml
 # wait...
 ```
@@ -54,7 +54,7 @@ Now that the basic infrastructure is up, we can add the cirros image and a coupl
 
 ```bash
 curtis$ wget http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
-curtis$ ansible-playbook setup.yml
+curtis$ ansible-playbook setup.yml # this will install that image via glance, add some ssh keys (not really needed), and a default network called "flatnet"
 ```
 
 Finally we can login to the controller and start a vm. You don't have to login to the controller, but I have put the ```adminrc``` and ```testrc``` files there to easily source an the OpenStack variables.
