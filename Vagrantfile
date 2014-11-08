@@ -16,23 +16,16 @@ boxes = [
         ],
     },
     {
-        :name => :controller02,
-        :pubip => '192.168.10.12',
-        :intip => '10.1.10.12',
-        :flatip => '192.168.99.12',
-        :box => 'ubuntu/trusty64',
-        :vbox_config => [
-            { '--memory' => '2048' }
-        ],
-    },
-    {
         :name => :compute01,
         :pubip => '192.168.10.21',
         :intip => '10.1.10.21',
         :flatip => '192.168.99.21',
         :box => 'ubuntu/trusty64',
         :vbox_config => [
-            { '--memory' => '2048' }
+            {
+              '--memory' => '2048',
+              '--nicpromisc4' => 'allow-all'
+            }
         ],
     },
 ]

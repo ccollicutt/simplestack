@@ -1,3 +1,12 @@
+- name: ensure sysctl is appropriately configured
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - { name: net.ipv4.ip_forward, value: 1 }
+    - { name: net.ipv4.conf.all.rp_filter, value: 0 }
+    - { name: net.ipv4.conf.default.rp_filter, value: 0 }
 
 - name: ensure required packages are installed
   apt: >

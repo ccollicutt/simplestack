@@ -40,7 +40,7 @@
       --file /vagrant/cirros-0.3.0-x86_64-disk.img
     when: cirros_image.rc != 0
 
-  - name: check if demo-net is already installed
+  - name: check if flatnet is already installed
     shell: . /home/vagrant/adminrc && nova --insecure \
       net-list | grep flatnet
     register: demo_net
@@ -52,4 +52,17 @@
      --bridge br100 \
      --multi-host T \
      --fixed-range-v4 192.168.99.32/27
+     #--fixed-range-v4 192.168.100.0/24
     when: demo_net.rc != 0
+
+  - name: check if default secgroup has icmp allowed
+    shell: . /home/vagrant/adminrc && nova --insecure \
+      secgroup-list-rules default | grep icmp
+    register: icmp_allowed
+    ignore_errors: True
+
+  - name: allow all icmp for default secgroup
+    shell: . /home/vagrant/adminrc && nova --insecure \
+      secgroup-add-rule default \
+      icmp -1 -1 0.0.0.0/0
+    when: icmp_allowed.rc != 0

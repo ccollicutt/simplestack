@@ -6,8 +6,8 @@
 [controller-primary]
 10.1.10.11
 
-[controller-secondary]
-10.1.10.12
+#[controller-secondary]
+#10.1.10.12
 
 [compute]
 10.1.10.21
