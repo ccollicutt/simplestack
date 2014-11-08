@@ -12,7 +12,6 @@
     mode=0644
   register: nova_conf
 
-# FIXME: not sure about all these services...
 - name: restart nova services
   service: >
     name={{ item }}
@@ -20,15 +19,15 @@
   when: nova_conf.changed
   with_items:
     - nova-compute
+    - nova-conductor
 
-# FIXME: not sure about all these services...
 - name: ensure nova services are running
   service: >
     name={{ item }}
     state=running
   with_items:
     - nova-compute
-  when: nova_conf.changed
+    - nova-conductor
 
 # FIXME: wait for ports?
 - name: pause for nova services

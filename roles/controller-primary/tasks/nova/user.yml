@@ -1,0 +1,19 @@
+#
+# Create nova user
+#
+
+- name: create admin nova user
+  keystone_user: >
+    token={{ keystone_admin_token }}
+    user={{ nova_admin_user }}
+    tenant=service
+    password={{ nova_admin_user_password }}
+    endpoint="https://127.0.0.1:35357/v2.0"
+
+- name: add nova user to admin role
+  keystone_user: >
+    token={{ keystone_admin_token }}
+    role=admin
+    user={{ nova_admin_user }}
+    tenant=service
+    endpoint="https://127.0.0.1:35357/v2.0"

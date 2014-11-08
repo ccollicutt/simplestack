@@ -12,6 +12,10 @@
   roles:
     - controller-primary
 
+#- hosts: controller-secondary
+#  roles:
+#    - controller-secondary
+
 - hosts: compute
   roles:
     - compute

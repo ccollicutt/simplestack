@@ -1,6 +1,7 @@
+
+# FIXME: controller-base?
 [controller-common]
 10.1.10.11
-10.1.10.12
 
 [controller-primary]
 10.1.10.11

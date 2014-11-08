@@ -1,0 +1,5 @@
+---
+
+- name: ensure required packages are installed
+  apt: name={{ item }} state=installed
+  with_items: packages

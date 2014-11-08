@@ -4,6 +4,7 @@ packages:
   - keystone
   - python-keyring
   - mysql-server
+  - mysql-client
   - python-mysqldb
   - rabbitmq-server
   - glance

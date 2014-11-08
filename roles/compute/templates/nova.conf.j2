@@ -10,11 +10,15 @@ root_helper=sudo nova-rootwrap /etc/nova/rootwrap.conf
 verbose=True
 rpc_backend = nova.rpc.impl_kombu
 rabbit_host = {{ keystone_internal_ip }}
-rabbit_password = rabbit
-my_ip = {{ keystone_internal_ip }}
-vncserver_listen = {{ keystone_internal_ip }}
-vncserver_proxyclient_address = {{ keystone_internal_ip }}
-novncproxy_base_url=http://{{ keystone_internal_ip }}:6080/vnc_auto.html
+
+# FIXME!
+rabbit_password = guest
+rabbit_userid = guest
+
+my_ip = {{ ansible_eth2.ipv4.address }}
+vncserver_listen = 0.0.0.0
+vncserver_proxyclient_address = {{ ansible_eth2.ipv4.address }}
+novncproxy_base_url = http://{{ keystone_internal_ip }}:6080/vnc_auto.html
 glance_host = {{ keystone_internal_ip }}
 auth_strategy=keystone
 

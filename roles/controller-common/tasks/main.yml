@@ -11,3 +11,11 @@
 - include: keystone/main.yml
 - include: glance/main.yml
 - include: nova/main.yml
+
+- name: install adminrc file
+  template: >
+    src=adminrc.j2
+    dest=/home/vagrant/adminrc
+    owner=vagrant
+    group=vagrant
+    mode=0640

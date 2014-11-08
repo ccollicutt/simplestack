@@ -5,7 +5,6 @@
 
 - include: mysql-server.yml
 
-
 - include: keystone/db.yml
 #- include: keystone/ssl.yml
 - include: keystone/endpoints.yml
@@ -16,4 +15,6 @@
 - include: glance/db.yml
 - include: glance/user.yml
 
+- include: nova/endpoint.yml
 - include: nova/db.yml
+- include: nova/user.yml

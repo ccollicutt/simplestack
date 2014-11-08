@@ -1,0 +1,14 @@
+---
+
+- name: create nova endpoint
+  keystone_service: >
+    insecure=yes
+    name="nova"
+    type="compute"
+    description="OpenStack Compute"
+    publicurl="http://{{ keystone_external_ip }}:8774/v2/%(tenant_id)s"
+    internalurl="http://{{ keystone_internal_ip }}:8774/v2/%(tenant_id)s"
+    adminurl="http://{{ keystone_internal_ip }}:8774/v2/%(tenant_id)s"
+    region={{ keystone_region }}
+    token={{ keystone_admin_token }}
+    endpoint="https://127.0.0.1:35357/v2.0"

@@ -3,3 +3,5 @@
 packages:
   - nova-compute
   - sysfsutils
+  # FIXME: Thought this was only needed on the compute nodes
+  - nova-conductor
