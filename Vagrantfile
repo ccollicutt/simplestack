@@ -28,6 +28,19 @@ boxes = [
             }
         ],
     },
+    {
+        :name => :compute02,
+        :pubip => '192.168.10.22',
+        :intip => '10.1.10.22',
+        :flatip => '192.168.99.22',
+        :box => 'ubuntu/trusty64',
+        :vbox_config => [
+            {
+              '--memory' => '2048',
+              '--nicpromisc4' => 'allow-all'
+            }
+        ],
+    },
 ]
 
 Vagrant.configure("2") do |config|
