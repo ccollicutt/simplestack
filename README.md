@@ -129,3 +129,16 @@ PING 192.168.99.1 (192.168.99.1): 56 data bytes
 1 packets transmitted, 1 packets received, 0% packet loss
 round-trip min/avg/max = 1.600/1.600/1.600 ms
 ```
+
+## Multihost FlatDHCP Network
+
+Oof, that is a mouthful. To be honest I haven't found a great description of this setup. It's working, but the one thing I'm wondering about is how the gateway is working on each compute node. For example, each compute node is responding to ```192.168.99.33``` but that is not pingable from the controller. On one hand it makes sense and is working, but on the other I can't find it documented anywhere clearly.
+
+Mirantis has a [good description](https://software.mirantis.com/refdoc-fuelweb3/flatdhcp-manager-multi-host-scheme/) of a "Multihost Flat Network" in OpenStack.
+
+>The main idea behind the flat network manager is to configure a bridge (i.e. br100) on every compute node and have one of the machine’s host interfaces connect to it. Once the virtual machine is launched its virtual interface will connect to that bridge as well. The same L2 segment is used for all OpenStack projects, and it means that there is no L2 isolation between virtual hosts, even if they are owned by separated projects. For this reason it is called Flat manager.
+
+There are a few other write ups of the flat network:
+
+* [OpenStack Havan Flat Networking](http://behindtheracks.com/2013/12/openstack-havana-flat-networking/)
+* The [example architecture document](http://docs.openstack.org/openstack-ops/content/example_architecture.html) kinda gets into it
