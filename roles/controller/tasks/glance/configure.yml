@@ -2,7 +2,7 @@
 
 - name: install configuration files from templates
   template: >
-    src=roles/controller-common/templates/{{ item }}.j2
+    src=roles/controller/templates/{{ item }}.j2
     dest=/etc/glance/{{ item }}
     owner=root
     group=root

@@ -1,5 +1,14 @@
 ---
 
+- name: ensure required packages are installed
+  apt: >
+    name={{ item }}
+    state=installed
+    update_cache=yes
+    cache_valid_time=3600
+  with_items: packages
+
+# OpenStack rc files
 - include: rc-files.yml
 
 - include: haproxy/main.yml
@@ -8,7 +17,6 @@
 
 - include: keystone/configure.yml
 - include: keystone/db.yml
-#- include: keystone/ssl.yml
 - include: keystone/endpoints.yml
 - include: keystone/tenants.yml
 - include: keystone/test.yml

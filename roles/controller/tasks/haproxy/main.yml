@@ -1,15 +1,8 @@
 ---
 
-- name: ensure haproxy is installed
-  apt: >
-    name=haproxy
-    state=installed
-    update_cache=yes
-    cache_valid_time=3600
-
 - name: install haproxy configuration file
   template: >
-    src=roles/controller-primary/templates/haproxy.cfg.j2
+    src=roles/controller/templates/haproxy.cfg.j2
     dest=/etc/haproxy/haproxy.cfg
     owner=root
     group=root

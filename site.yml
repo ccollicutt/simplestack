@@ -8,13 +8,9 @@
     - set_fact: keystone_external_ip={{ hostvars['controller01']['ansible_eth1']['ipv4']['address'] }}
     - set_fact: keystone_internal_ip={{ hostvars['controller01']['ansible_eth2']['ipv4']['address'] }}
 
-- hosts: controller-common
+- hosts: controller
   roles:
-    - controller-common
-
-- hosts: controller-primary
-  roles:
-    - controller-primary
+    - controller
 
 - hosts: compute
   roles:

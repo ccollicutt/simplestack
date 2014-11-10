@@ -83,13 +83,6 @@ vagrant@controller01:~$ nova net-list # if you ran setup.yml the output should b
 vagrant@controller01:~$ nova boot --flavor m1.tiny --image Cirros demo-instance1
 ```
 
-Setup default rules, allow ssh and icmp so you can ping and ssh into the cirros instance.
-
-```bash
-vagrant@controller01:~$ nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
-vagrant@controller01:~$ nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
-```
-
 If everything goes well, a vm should start up. As shown below, I've started a couple in the test tenant.
 
 ```bash

@@ -2,7 +2,7 @@
 
 - name: install keystone.conf file from template
   template: >
-    src=roles/controller-common/templates/keystone.conf.j2
+    src=roles/controller/templates/keystone.conf.j2
     dest=/etc/keystone/keystone.conf
     owner=root
     group=root

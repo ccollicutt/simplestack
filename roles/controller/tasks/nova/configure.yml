@@ -1,7 +1,7 @@
 
 - name: install nova.conf file from template
   template: >
-    src=roles/controller-common/templates/nova.conf.j2
+    src=roles/controller/templates/nova.conf.j2
     dest=/etc/nova/nova.conf
     owner=nova
     group=nova
@@ -10,7 +10,7 @@
 
 - name: install nova's api-paste.ini file from template
   template: >
-    src=roles/controller-common/templates/nova-api-paste.ini.j2
+    src=roles/controller/templates/nova-api-paste.ini.j2
     dest=/etc/nova/api-paste.ini
     owner=nova
     group=nova

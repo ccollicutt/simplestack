@@ -16,3 +16,4 @@ packages:
   - nova-novncproxy
   - nova-scheduler
   - python-novaclient
+  - haproxy
