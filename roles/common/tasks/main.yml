@@ -1,5 +1,6 @@
 ---
 
+- include: disabled-services.yml
 - include: etc-hosts.yml
 - include: ntp.yml
 - include: juno-repo.yml

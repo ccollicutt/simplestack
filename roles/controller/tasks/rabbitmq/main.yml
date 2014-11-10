@@ -1,0 +1,23 @@
+---
+
+- name: install rabbitmq configuration file
+  template: >
+    src=roles/controller/templates/rabbitmq-env.conf.j2
+    dest=/etc/rabbitmq/rabbitmq-env.conf
+    owner=root
+    group=root
+    mode=0644
+  register: rabbitmq_conf
+
+# FIXME: reload or restart?
+- name: restart rabbitmq when configuration changes
+  service: >
+    name=rabbitmq-server
+    state=restarted
+  when: rabbitmq_conf.changed
+
+- name: ensure rabbitmq is running
+  service: >
+    name=rabbitmq-server
+    state=running
+    enabled=yes

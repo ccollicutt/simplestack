@@ -11,6 +11,8 @@
 # OpenStack rc files
 - include: rc-files.yml
 
+- include: rabbitmq/main.yml
+
 - include: haproxy/main.yml
 
 - include: mysql-server.yml
