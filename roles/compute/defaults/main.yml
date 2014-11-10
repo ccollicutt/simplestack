@@ -7,3 +7,9 @@ packages:
   - nova-conductor
   - nova-api-metadata
   - nova-network
+
+nova_compute_services:
+  - nova-compute
+  - nova-network
+  - nova-api-metadata
+  - nova-conductor

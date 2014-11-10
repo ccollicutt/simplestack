@@ -1,8 +1,5 @@
 .vagrant
 library/openstack-ansible-modules
-group_vars/controller
-group_vars/compute
-group_vars/all
 TODO.md
 NOTES.md
 *.img

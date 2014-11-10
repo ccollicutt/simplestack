@@ -1,0 +1,7 @@
+#
+# Timezone and NTP
+#
+
+timezone_area: America
+timezone_city: Edmonton
+time_server: ntp.ubuntu.com

@@ -29,6 +29,15 @@ My home workstation is fairly powerful, with 8 cores and 32GB of main memory, as
 curtis$ git clone git@github.com:ccollicutt/ansible-openstack-juno.git
 ```
 
+## Edit files
+
+There are two files to edit.
+
+* ```group_vars/compute```
+* ```group_vars/controller```
+
+There is also a section in the ```site.yml``` file that sets a couple of ansible facts that simplify variables. But they reference the controller hosts interfaces, so would likely need to be chagned if you are not using Vagrant.
+
 ## OpenStack Ansible modules
 
 I use [these great modules](https://github.com/openstack-ansible).

@@ -17,3 +17,11 @@ packages:
   - nova-scheduler
   - python-novaclient
   - haproxy
+
+nova_controller_services:
+  - nova-api
+  - nova-cert
+  - nova-consoleauth
+  - nova-scheduler
+  - nova-conductor
+  - nova-novncproxy

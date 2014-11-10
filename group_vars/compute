@@ -1,0 +1,10 @@
+---
+
+# qemu or kvm
+nova_virt_type: qemu
+nova_mysql_password: CHANGEME
+nova_admin_user: nova
+nova_admin_user_password: CHANGEME
+
+# This is the interface that the vm traffic will go out of
+flat_interface: eth3
