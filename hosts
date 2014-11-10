@@ -1,14 +1,10 @@
-
 # FIXME: controller-base?
 [controller-common]
-10.1.10.11
+controller01 ansible_ssh_host=10.1.10.11
 
 [controller-primary]
-10.1.10.11
-
-#[controller-secondary]
-#10.1.10.12
+controller01 ansible_ssh_host=10.1.10.11
 
 [compute]
-10.1.10.21
-10.1.10.22
+compute01 ansible_ssh_host=10.1.10.21
+compute02 ansible_ssh_host=10.1.10.22

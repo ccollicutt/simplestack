@@ -3,6 +3,10 @@
 - hosts: all
   roles:
     - common
+  tasks:
+    # Just less typing...
+    - set_fact: keystone_external_ip={{ hostvars['controller01']['ansible_eth1']['ipv4']['address'] }}
+    - set_fact: keystone_internal_ip={{ hostvars['controller01']['ansible_eth2']['ipv4']['address'] }}
 
 - hosts: controller-common
   roles:
@@ -11,10 +15,6 @@
 - hosts: controller-primary
   roles:
     - controller-primary
-
-#- hosts: controller-secondary
-#  roles:
-#    - controller-secondary
 
 - hosts: compute
   roles:

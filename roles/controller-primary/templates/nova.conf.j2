@@ -19,7 +19,7 @@ osapi_compute_listen = {{ keystone_internal_ip }}
 my_ip = {{ keystone_internal_ip }}
 vncserver_listen = {{ keystone_internal_ip }}
 vncserver_proxyclient_address = {{ keystone_internal_ip }}
-novncproxy_base_url=https://{{ keystone_external_ip }}:10003/vnc_auto.html
+novncproxy_base_url=https://{{ hostvars['controller01']['ansible_eth1']['ipv4']['address'] }}:10003/vnc_auto.html
 
 # FIXME: should be in [glance] section as "host"?
 glance_host = {{ keystone_internal_ip }}

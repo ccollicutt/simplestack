@@ -1,22 +1,24 @@
 ---
 
-
-- include: ip.yml
+- include: rc-files.yml
 
 - include: haproxy/main.yml
 
 - include: mysql-server.yml
 
+- include: keystone/configure.yml
 - include: keystone/db.yml
 #- include: keystone/ssl.yml
 - include: keystone/endpoints.yml
 - include: keystone/tenants.yml
 - include: keystone/test.yml
 
+- include: glance/configure.yml
 - include: glance/endpoint.yml
 - include: glance/db.yml
 - include: glance/user.yml
 
+- include: nova/configure.yml
 - include: nova/endpoint.yml
 - include: nova/db.yml
 - include: nova/user.yml
