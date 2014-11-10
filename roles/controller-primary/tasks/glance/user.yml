@@ -8,7 +8,7 @@
     user={{ glance_admin_user }}
     tenant=service
     password={{ glance_admin_user_password }}
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
 
 - name: add glance user to admin role
   keystone_user: >
@@ -16,4 +16,4 @@
     role=admin
     user={{ glance_admin_user }}
     tenant=service
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"

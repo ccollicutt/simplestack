@@ -29,6 +29,7 @@
   service: >
     name={{ item }}
     state=running
+    enabled=yes
   with_items: nova_controller_services
 
 # FIXME: wait for ports?

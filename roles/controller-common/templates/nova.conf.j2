@@ -14,14 +14,19 @@ rabbit_host = {{ keystone_internal_ip }}
 rabbit_password = guest
 rabbit_userid = guest
 
+osapi_compute_listen = {{ keystone_internal_ip }}
+
 my_ip = {{ keystone_internal_ip }}
 vncserver_listen = {{ keystone_internal_ip }}
 vncserver_proxyclient_address = {{ keystone_internal_ip }}
-novncproxy_base_url=http://{{ keystone_internal_ip }}:6080/vnc_auto.html
+novncproxy_base_url=https://{{ keystone_external_ip }}:10003/vnc_auto.html
 
 # FIXME: should be in [glance] section as "host"?
 glance_host = {{ keystone_internal_ip }}
 auth_strategy=keystone
+
+metadata_listen = {{ keystone_internal_ip }}
+ec2_listen = {{ keystone_internal_ip }}
 
 #
 # Network

@@ -1,0 +1,4 @@
+---
+
+- name: install haproxy ppa repository
+  apt_repository: repo="ppa:vbernat/haproxy-1.5"

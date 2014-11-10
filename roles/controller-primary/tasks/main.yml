@@ -3,6 +3,8 @@
 
 - include: ip.yml
 
+- include: haproxy/main.yml
+
 - include: mysql-server.yml
 
 - include: keystone/db.yml

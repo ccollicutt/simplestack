@@ -15,12 +15,12 @@ admin_token={{ keystone_admin_token }}
 # The IP address of the network interface for the public
 # service to listen on. (string value)
 # Deprecated group/name - [DEFAULT]/bind_host
-#public_bind_host=0.0.0.0
+public_bind_host={{ keystone_external_ip }}
 
 # The IP address of the network interface for the admin
 # service to listen on. (string value)
 # Deprecated group/name - [DEFAULT]/bind_host
-#admin_bind_host=0.0.0.0
+admin_bind_host={{ keystone_internal_ip }}
 
 # (Deprecated) The port which the OpenStack Compute service
 # listens on. This option was only used for string replacement
@@ -630,7 +630,7 @@ log_dir=/var/log/keystone
 # Deprecated group/name - [DATABASE]/sql_connection
 # Deprecated group/name - [sql]/connection
 #connection=sqlite:////var/lib/keystone/keystone.db
-connection = mysql://keystone:{{ keystone_mysql_password }}@127.0.0.1/keystone
+connection = mysql://keystone:{{ keystone_mysql_password }}@{{ keystone_internal_ip }}/keystone
 
 # The SQLAlchemy connection string to use to connect to the
 # slave database. (string value)

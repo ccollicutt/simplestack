@@ -16,14 +16,14 @@
     token={{ keystone_admin_token }}
     tenant=admin
     tenant_description="Admin Tenant"
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
 
 - name: create demo keystone tenant
   keystone_user: >
     token={{ keystone_admin_token }}
     tenant=demo
     tenant_description="Default Tenant"
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
 
 #
 # Create keystone users
@@ -35,7 +35,7 @@
     user={{ keystone_admin_user }}
     tenant=demo
     password={{ keystone_admin_user_password }}
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
 
 - name: create ec2 service keystone user
   keystone_user: >
@@ -43,7 +43,7 @@
     user=ec2
     tenant=service
     password={{ keystone_generic_service_password }}
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
 
 - name: create test keystone user
   keystone_user: >
@@ -51,7 +51,7 @@
     user={{ keystone_test_user }}
     tenant=demo
     password={{ keystone_test_user_password }}
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
 
 #
 # Keystone create and apply roles
@@ -63,7 +63,7 @@
     role={{ keystone_admin_role }}
     user={{ keystone_admin_user }}
     tenant={{ keystone_admin_tenant }}
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
 
 - name: add keystone admin to admin role
   keystone_user: >
@@ -71,4 +71,4 @@
     role={{ keystone_admin_role }}
     user=ec2
     tenant=service
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"

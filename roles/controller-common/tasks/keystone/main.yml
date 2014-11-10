@@ -9,6 +9,7 @@
     mode=0644
   register: keystone_conf
 
+# FIXME: Could use stat here?
 - name: check if ssl_setup has already been run
   command: ls /etc/keystone/ssl/private/keystonekey.pem
   register: ssl_setup

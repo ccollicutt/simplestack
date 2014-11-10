@@ -5,7 +5,7 @@
     --os-username={{ keystone_admin_user }} \
     --os-password={{ keystone_admin_user_password }} \
     --os-tenant-name={{ keystone_admin_tenant }} \
-    --os-auth-url=https://{{ keystone_external_ip }}:35357/v2.0 \
+    --os-auth-url=https://{{ keystone_internal_ip }}:35357/v2.0 \
     {{ item }}
   changed_when: False
   with_items:

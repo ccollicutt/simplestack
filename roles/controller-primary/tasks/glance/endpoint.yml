@@ -6,9 +6,9 @@
     name="glance"
     type="image"
     description="Glance Image Service"
-    publicurl="http://{{ keystone_external_ip }}:9292"
-    internalurl="http://{{ keystone_internal_ip }}:9292"
-    adminurl="http://{{ keystone_internal_ip }}:9292"
+    publicurl="https://{{ keystone_external_ip }}:10000"
+    internalurl="https://{{ keystone_internal_ip }}:10000"
+    adminurl="https://{{ keystone_internal_ip }}:10000"
     region={{ keystone_region }}
     token={{ keystone_admin_token }}
-    endpoint="https://127.0.0.1:35357/v2.0"
+    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"

@@ -102,6 +102,15 @@ vagrant@controller01:~$ nova list
 +--------------------------------------+----------------+--------+------------+-------------+-----------------------+
 ```
 
+With two or more compute nodes the instances should be scheduled across them.
+
+```bash
+vagrant@controller01:~$ sudo nova-manage vm list | tr -s " " |  cut -f 1,2 -d " "
+instance node
+demo-instance1 compute02
+demo-instance2 compute01
+```
+
 Finally we can try sshing in. I'm going from my workstation's command line.
 
 ```bash
@@ -130,6 +139,19 @@ PING 192.168.99.1 (192.168.99.1): 56 data bytes
 round-trip min/avg/max = 1.600/1.600/1.600 ms
 ```
 
+## SSL and Haproxy
+
+<span style="color:red">NOTE: You'll have to use ```--insecure``` with nova, glance, and keystone commands.</span>
+
+Haproxy is fronting most of the services. Keystone has it's own SSL for now, though that's not what one would do in production, so it's listening on its commonly used port number. I hope to eventually front all the necessary services with SSL.
+
+I'm using some funny ports:
+
+* 10000 = glance api
+* 10001 = glance registry
+* 10002 = nova api
+* 10003 = novnc proxy
+
 ## Multihost FlatDHCP Network
 
 Oof, that is a mouthful. To be honest I haven't found a great description of this setup. It's working, but the one thing I'm wondering about is how the gateway is working on each compute node. For example, each compute node is responding to ```192.168.99.33``` but that is not pingable from the controller. On one hand it makes sense and is working, but on the other I can't find it documented anywhere clearly.
@@ -142,3 +164,79 @@ There are a few other write ups of the flat network:
 
 * [OpenStack Havan Flat Networking](http://behindtheracks.com/2013/12/openstack-havana-flat-networking/)
 * The [example architecture document](http://docs.openstack.org/openstack-ops/content/example_architecture.html) kinda gets into it
+* A [nova.conf configuration example](http://docs.openstack.org/juno/config-reference/content/section_compute-config-samples.html)
+
+## OpenStack Services
+
+First, note this is a limited install. We're only running a few core services.
+
+Main apis:
+
+* Keystone
+* Nova
+* Glance
+* No cinder
+* No neutron
+
+nova_controller_services:
+
+* nova-api
+* nova-cert
+* nova-consoleauth
+* nova-scheduler
+* nova-conductor
+* nova-novncproxy
+
+nova_compute_services:
+
+* nova-compute
+* nova-network
+* nova-api-metadata
+* nova-conductor
+
+Other controller services:
+
+* Rabbitmq
+* MySQL
+
+Listening ports on controller:
+
+```bash
+vagrant@controller01:~$ sudo lsof -i -P | grep LISTEN | grep -v sshd
+rpcbind     777     root    8u  IPv4   8011      0t0  TCP *:111 (LISTEN)
+rpcbind     777     root   11u  IPv6   8014      0t0  TCP *:111 (LISTEN)
+rpc.statd   831    statd    8u  IPv4   8113      0t0  TCP *:34749 (LISTEN)
+rpc.statd   831    statd   10u  IPv6   8119      0t0  TCP *:43333 (LISTEN)
+keystone-  1125 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
+keystone-  1125 keystone    7u  IPv4  10370      0t0  TCP *:5000 (LISTEN)
+glance-re  1129   glance    4u  IPv4  10284      0t0  TCP *:9191 (LISTEN)
+glance-ap  1135   glance    4u  IPv4  10337      0t0  TCP *:9292 (LISTEN)
+nova-api   1201     nova    6u  IPv4  10338      0t0  TCP *:8773 (LISTEN)
+nova-api   1201     nova    7u  IPv4  10680      0t0  TCP *:8774 (LISTEN)
+nova-api   1201     nova    9u  IPv4  10929      0t0  TCP *:8775 (LISTEN)
+nova-novn  1213     nova    3u  IPv4  10068      0t0  TCP *:6080 (LISTEN)
+epmd       1241 rabbitmq    3u  IPv6   9503      0t0  TCP *:4369 (LISTEN)
+mysqld     1288    mysql   10u  IPv4   9823      0t0  TCP *:3306 (LISTEN)
+beam       1355 rabbitmq    6u  IPv4  10064      0t0  TCP *:41639 (LISTEN)
+beam       1355 rabbitmq   14u  IPv6  10966      0t0  TCP *:5672 (LISTEN)
+glance-re  1600   glance    4u  IPv4  10284      0t0  TCP *:9191 (LISTEN)
+glance-ap  1632   glance    4u  IPv4  10337      0t0  TCP *:9292 (LISTEN)
+nova-api   1634     nova    6u  IPv4  10338      0t0  TCP *:8773 (LISTEN)
+keystone-  1638 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
+keystone-  1639 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
+keystone-  1640 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
+keystone-  1640 keystone    7u  IPv4  10370      0t0  TCP *:5000 (LISTEN)
+keystone-  1641 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
+keystone-  1641 keystone    7u  IPv4  10370      0t0  TCP *:5000 (LISTEN)
+nova-api   1689     nova    6u  IPv4  10338      0t0  TCP *:8773 (LISTEN)
+nova-api   1689     nova    7u  IPv4  10680      0t0  TCP *:8774 (LISTEN)
+nova-api   1729     nova    6u  IPv4  10338      0t0  TCP *:8773 (LISTEN)
+nova-api   1729     nova    7u  IPv4  10680      0t0  TCP *:8774 (LISTEN)
+nova-api   1729     nova    9u  IPv4  10929      0t0  TCP *:8775 (LISTEN)
+```
+
+## Securing novnc
+
+Should probably be fronted by haproxy + ssl.
+
+*Ask OpenStack - [How to setup haproxy with novnc](https://ask.openstack.org/en/question/45966/how-to-properly-setup-haproxy-novnc/)

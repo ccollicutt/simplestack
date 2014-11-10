@@ -29,6 +29,7 @@
   service: >
     name={{ item }}
     state=running
+    enabled=yes
   with_items:
     - glance-registry
     - glance-api

@@ -66,3 +66,16 @@
       secgroup-add-rule default \
       icmp -1 -1 0.0.0.0/0
     when: icmp_allowed.rc != 0
+
+  # FIXME: not a good check
+  - name: check if default secgroup has ssh allowed
+    shell: . /home/vagrant/adminrc && nova --insecure \
+      secgroup-list-rules default | grep 22
+    register: ssh_allowed
+    ignore_errors: True
+
+  - name: allow all ssh for default secgroup
+    shell: . /home/vagrant/adminrc && nova --insecure \
+      secgroup-add-rule default \
+      tcp 22 22 0.0.0.0/0
+    when: ssh_allowed.rc != 0

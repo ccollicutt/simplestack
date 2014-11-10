@@ -1,0 +1,36 @@
+---
+
+- name: ensure haproxy is installed
+  apt: >
+    name=haproxy
+    state=installed
+    update_cache=yes
+    cache_valid_time=3600
+
+- name: install haproxy configuration file
+  template: >
+    src=roles/controller-primary/templates/haproxy.cfg.j2
+    dest=/etc/haproxy/haproxy.cfg
+    owner=root
+    group=root
+    mode=0644
+  register: haproxy_conf
+
+- name: create a combination pem file for haproxy
+  shell: cat /etc/ssl/private/ssl-cert-snakeoil.key \
+    /etc/ssl/certs/ssl-cert-snakeoil.pem > \
+    /etc/ssl/private/snakeoil.pem
+  args:
+    creates: /etc/ssl/private/snakeoil.pem
+
+- name: reload haproxy when configuration changes
+  service: >
+    name=haproxy
+    state=reloaded
+  when: haproxy_conf.changed
+
+- name: ensure haproxy is running
+  service: >
+    name=haproxy
+    state=running
+    enabled=yes
