@@ -1,4 +1,4 @@
-# Ansible OpenStack Juno
+# SimpleStack - OpenStack Juno installed with Ansible
 
 For now this playbook sets up a small OpenStack system with:
 
@@ -7,40 +7,41 @@ For now this playbook sets up a small OpenStack system with:
 
 It does not use Neutron, so "legacy" nova-network, and uses flat dhcp networking.
 
-## Getting started
+## Vagrant
 
 Requirements:
 
 * Vagrant
 * Base trusty box
 
+
 ```bash
 curtis$ vagrant box add ubuntu/trusty64
 ```
-## Vagrant
 
 I'm using the ```vagrant-cachier``` plugin, but you don't have to; could comment it out in the vagrant file.
 
-My home workstation is fairly powerful, with 8 cores and 32GB of main memory, as well as an SSD. A smaller host might have trouble with multiple virtual machines, but probably not.
+## Setup OpenStack
 
-## Clone this repo
+### Clone this repo
 
 ```bash
 curtis$ git clone git@github.com:ccollicutt/ansible-openstack-juno.git
 ```
 
-## Edit files
+### Edit files
 
-There are two files to edit.
+There are some variable files to edit. Make changes as you see fit.
 
+* ```group_vars/all```
 * ```group_vars/compute```
 * ```group_vars/controller```
 
-There is also a section in the ```site.yml``` file that sets a couple of ansible facts that simplify variables. But they reference the controller hosts interfaces, so would likely need to be chagned if you are not using Vagrant.
+There is also a section in the ```site.yml``` file that sets a couple of ansible facts that simplify variables. But they reference the controller hosts interfaces, so would likely need to be changed if you are not using Vagrant.
 
-## OpenStack Ansible modules
+### Install OpenStack Ansible modules
 
-I use [these great modules](https://github.com/openstack-ansible).
+I use [these great modules](https://github.com/openstack-ansible). I've never been comfortable with git submodules and the like, so they have to be manually installed.
 
 ```bash
 curtis$ cd ansible-openstack-juno
@@ -57,7 +58,7 @@ curtis$ sudo pip install python-novaclient
 curtis$ sudo pip install python-glanceclient
 ```
 
-## Run!
+### Run the playbook
 
 ```bash
 curtis$ vagrant up
@@ -66,17 +67,23 @@ curtis$ ansible-playbook site.yml
 # wait...
 ```
 
-Now that the basic infrastructure is up, we can add the cirros image and a couple other things.
+### Setup OpenStack
+
+With the basic infrastructure up, we can add the cirros image, configure the default network, etc.
+
+First, download the Cirros image to the root of the playbook.
 
 ```bash
 curtis$ wget http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
 ```
 
-Now that we have the cirros image, we can run the short setup playbook. This will install the cirros image via glance, add some ssh keys (not really needed though), and a default network called "flatnet" (which sounds mathematica).
+Now that we have the Cirros image, we can run the short setup playbook. This will install the cirros image via glance, add some ssh keys (not really needed though), and a default network called "flatnet" (which sounds mathematical).
 
 ```bash
 curtis$ ansible-playbook setup.yml
 ```
+
+### Boot instances
 
 Finally we can login to the controller and start an instance. You don't have to login to the controller, but I have put the ```adminrc``` and ```testrc``` files there to easily source an the OpenStack variables.
 
@@ -167,78 +174,3 @@ There are a few other write ups of the flat network:
 * [OpenStack Havan Flat Networking](http://behindtheracks.com/2013/12/openstack-havana-flat-networking/)
 * The [example architecture document](http://docs.openstack.org/openstack-ops/content/example_architecture.html) kinda gets into it
 * A [nova.conf configuration example](http://docs.openstack.org/juno/config-reference/content/section_compute-config-samples.html)
-
-## OpenStack Services
-
-First, note this is a limited install. We're only running a few core services.
-
-Main apis:
-
-* Keystone
-* Nova
-* Glance
-* No cinder
-* No neutron
-
-nova_controller_services:
-
-* nova-api
-* nova-cert
-* nova-consoleauth
-* nova-scheduler
-* nova-conductor
-* nova-novncproxy
-
-nova_compute_services:
-
-* nova-compute
-* nova-network
-* nova-api-metadata
-* nova-conductor
-
-Other controller services:
-
-* Rabbitmq
-* MySQL
-
-Listening ports on controller:
-
-```bash
-vagrant@controller01:~$ sudo lsof -i -P | grep LISTEN | grep -v sshd
-rpcbind     777     root    8u  IPv4   8011      0t0  TCP *:111 (LISTEN)
-rpcbind     777     root   11u  IPv6   8014      0t0  TCP *:111 (LISTEN)
-rpc.statd   831    statd    8u  IPv4   8113      0t0  TCP *:34749 (LISTEN)
-rpc.statd   831    statd   10u  IPv6   8119      0t0  TCP *:43333 (LISTEN)
-keystone-  1125 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
-keystone-  1125 keystone    7u  IPv4  10370      0t0  TCP *:5000 (LISTEN)
-glance-re  1129   glance    4u  IPv4  10284      0t0  TCP *:9191 (LISTEN)
-glance-ap  1135   glance    4u  IPv4  10337      0t0  TCP *:9292 (LISTEN)
-nova-api   1201     nova    6u  IPv4  10338      0t0  TCP *:8773 (LISTEN)
-nova-api   1201     nova    7u  IPv4  10680      0t0  TCP *:8774 (LISTEN)
-nova-api   1201     nova    9u  IPv4  10929      0t0  TCP *:8775 (LISTEN)
-nova-novn  1213     nova    3u  IPv4  10068      0t0  TCP *:6080 (LISTEN)
-epmd       1241 rabbitmq    3u  IPv6   9503      0t0  TCP *:4369 (LISTEN)
-mysqld     1288    mysql   10u  IPv4   9823      0t0  TCP *:3306 (LISTEN)
-beam       1355 rabbitmq    6u  IPv4  10064      0t0  TCP *:41639 (LISTEN)
-beam       1355 rabbitmq   14u  IPv6  10966      0t0  TCP *:5672 (LISTEN)
-glance-re  1600   glance    4u  IPv4  10284      0t0  TCP *:9191 (LISTEN)
-glance-ap  1632   glance    4u  IPv4  10337      0t0  TCP *:9292 (LISTEN)
-nova-api   1634     nova    6u  IPv4  10338      0t0  TCP *:8773 (LISTEN)
-keystone-  1638 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
-keystone-  1639 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
-keystone-  1640 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
-keystone-  1640 keystone    7u  IPv4  10370      0t0  TCP *:5000 (LISTEN)
-keystone-  1641 keystone    6u  IPv4  10369      0t0  TCP *:35357 (LISTEN)
-keystone-  1641 keystone    7u  IPv4  10370      0t0  TCP *:5000 (LISTEN)
-nova-api   1689     nova    6u  IPv4  10338      0t0  TCP *:8773 (LISTEN)
-nova-api   1689     nova    7u  IPv4  10680      0t0  TCP *:8774 (LISTEN)
-nova-api   1729     nova    6u  IPv4  10338      0t0  TCP *:8773 (LISTEN)
-nova-api   1729     nova    7u  IPv4  10680      0t0  TCP *:8774 (LISTEN)
-nova-api   1729     nova    9u  IPv4  10929      0t0  TCP *:8775 (LISTEN)
-```
-
-## Securing novnc
-
-Should probably be fronted by haproxy + ssl.
-
-*Ask OpenStack - [How to setup haproxy with novnc](https://ask.openstack.org/en/question/45966/how-to-properly-setup-haproxy-novnc/)
