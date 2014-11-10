@@ -5,7 +5,7 @@ For now this playbook sets up a small OpenStack system with:
 * 1x controller
 * 2x compute nodes
 
-It does not use Neutron, so "legacy" nova-network, and uses flat dhcp networking.
+It does not use Neutron, so "legacy" nova-network, and uses flat dhcp. Cinder is not installed either, nor Horizon. About the only extra thing is the fact that haproxy is setup to front the nova and glance apis with ssl.
 
 ## Vagrant
 
@@ -13,7 +13,6 @@ Requirements:
 
 * Vagrant
 * Base trusty box
-
 
 ```bash
 curtis$ vagrant box add ubuntu/trusty64
