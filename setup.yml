@@ -1,9 +1,8 @@
 ---
 
-- hosts: controller-primary
-
+- hosts: controller01
   tasks:
-
+    
   - name: generate keypair for demo user
     shell: ssh-keygen -f /home/vagrant/.ssh/id_rsa -t rsa -N ''
     args:
