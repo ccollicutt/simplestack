@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.1
+
+* Upped the compute nodes to 4096 and 4 cpus
+* Added a modest flavor, 512MB and 10GB disk, 1 cpu
+* Changed the "flatnet" to be part of the 192.168.99.0/24 network, instead of a small network within, limited to 192.168.99.40-60.
+
 ## v0.2
 
 * Haproxy is "ssl-ifying" the frontend apis

@@ -26,8 +26,8 @@ if ! ansible -m ping all; then
   # Seems like pinging them sometimes helps to
   # bring them up networking-wise...
   ping -c 5 -w 1 10.1.10.11
-  #ping -c 5 -w 1 10.1.10.12
   ping -c 5 -w 1 10.1.10.21
+  ping -c 5 -w 1 10.1.10.22
   sleep 5
   if ! ansible -m ping all; then
     echo "ERROR: Could not ping hosts"

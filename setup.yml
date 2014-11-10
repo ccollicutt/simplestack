@@ -2,7 +2,7 @@
 
 - hosts: controller01
   tasks:
-    
+
   - name: generate keypair for demo user
     shell: ssh-keygen -f /home/vagrant/.ssh/id_rsa -t rsa -N ''
     args:
@@ -29,6 +29,18 @@
     register: cirros_image
     ignore_errors: True
 
+  - name: checkf if a modest flavor has been created
+    shell: . /home/vagrant/adminrc && nova --insecure \
+      flavor-list | grep modest
+    register: modest_flavor
+    ignore_errors: True
+
+  # A 512MB with 1 cpu and 10 gb of disk, id of 6
+  - name: create a modest flavor
+    shell: . /home/vagrant/adminrc && nova --insecure \
+      flavor-create m1.modest 6 512 10 1
+    when: modest_flavor.rc != 0
+
   - name: install cirros image
     shell: . /home/vagrant/adminrc && glance --insecure \
       image-create \
@@ -50,8 +62,11 @@
      network-create flatnet \
      --bridge br100 \
      --multi-host T \
-     --fixed-range-v4 192.168.99.32/27
-     #--fixed-range-v4 192.168.100.0/24
+     --fixed-range-v4 192.168.99.0/24 \
+     --allowed-start 192.168.99.40 \
+     --allowed-end 192.168.99.60 \
+     --gateway 192.168.99.1
+     #--fixed-range-v4 192.168.99.32/27
     when: demo_net.rc != 0
 
   - name: check if default secgroup has icmp allowed

@@ -5,6 +5,8 @@ For now this playbook sets up a small OpenStack system with:
 * 1x controller
 * 2x compute nodes
 
+You could add more compute nodes easily, but not more controllers.
+
 It does not use Neutron, so "legacy" nova-network, and uses flat dhcp. Cinder is not installed either, nor Horizon. About the only extra thing is the fact that haproxy is setup to front the nova and glance apis with ssl.
 
 ## Vagrant
@@ -68,7 +70,7 @@ curtis$ ansible-playbook site.yml
 
 ### Setup OpenStack
 
-With the basic infrastructure up, we can add the cirros image, configure the default network, etc.
+With the basic infrastructure up, we can add the Cirros image, configure the default network, etc.
 
 First, download the Cirros image to the root of the playbook.
 
@@ -76,7 +78,7 @@ First, download the Cirros image to the root of the playbook.
 curtis$ wget http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
 ```
 
-Now that we have the Cirros image, we can run the short setup playbook. This will install the cirros image via glance, add some ssh keys (not really needed though), and a default network called "flatnet" (which sounds mathematical).
+Now that we have the Cirros image, we can run the short setup playbook. This will install the Cirros image via glance, add some ssh keys (not really needed though), and a default network called "flatnet" (which sounds mathematical).
 
 ```bash
 curtis$ ansible-playbook setup.yml
@@ -84,7 +86,7 @@ curtis$ ansible-playbook setup.yml
 
 ### Boot instances
 
-Finally we can login to the controller and start an instance. You don't have to login to the controller, but I have put the ```adminrc``` and ```testrc``` files there to easily source an the OpenStack variables.
+Finally, we can login to the controller and start an instance. You don't have to login to the controller, but I have put the ```adminrc``` and ```testrc``` files there to easily source an the OpenStack variables.
 
 ```bash
 curtis$ ssh 10.1.10.11 # need to setup your .ssh/config to use the right user and private key

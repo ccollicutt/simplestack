@@ -29,7 +29,7 @@ global
     server controller01 {{ keystone_internal_ip }}:9292 check inter 10s
 
   frontend glance-registry
-    bind *:10001 ssl crt snakeoil.pem
+    bind {{ keystone_external_ip }}:10001 ssl crt snakeoil.pem
     default_backend glance-registry
 
   backend glance-registry
@@ -52,14 +52,6 @@ frontend nova-vnc
 
 backend nova-vnc
 	server controller01 {{ keystone_internal_ip }}:6080 check inter 10s
-
-frontend nova-ec2
-	bind {{ keystone_external_ip }}:10004 ssl crt snakeoil.pem
-	default_backend nova-ec2
-
-backend nova-ec2
-	server controller01 {{ keystone_internal_ip }}:8773 check inter 10s
-
 
 defaults
 	log	global

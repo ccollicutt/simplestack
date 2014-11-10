@@ -17,7 +17,7 @@
 
 - include: keystone/configure.yml
 - include: keystone/db.yml
-- include: keystone/endpoints.yml
+- include: keystone/endpoint.yml
 - include: keystone/tenants.yml
 - include: keystone/test.yml
 

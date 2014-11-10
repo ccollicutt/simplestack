@@ -20,7 +20,7 @@ my_ip = {{ ansible_eth2.ipv4.address }}
 vncserver_listen = 0.0.0.0
 # FIXME: eth1? seems to be removing eth2 ip...
 vncserver_proxyclient_address = {{ ansible_eth2.ipv4.address }}
-novncproxy_base_url = https://{{ hostvars['controller01']['ansible_eth1']['ipv4']['address'] }}:10003/vnc_auto.html
+novncproxy_base_url = https://{{ keystone_external_ip }}:10003/vnc_auto.html
 glance_host = {{ keystone_internal_ip }}
 auth_strategy=keystone
 

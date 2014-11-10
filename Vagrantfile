@@ -23,8 +23,9 @@ boxes = [
         :box => 'ubuntu/trusty64',
         :vbox_config => [
             {
-              '--memory' => '2048',
-              '--nicpromisc4' => 'allow-all'
+              '--memory' => '4096',
+              '--nicpromisc4' => 'allow-all',
+              '--cpus' => '4'
             }
         ],
     },
@@ -36,8 +37,9 @@ boxes = [
         :box => 'ubuntu/trusty64',
         :vbox_config => [
             {
-              '--memory' => '2048',
-              '--nicpromisc4' => 'allow-all'
+              '--memory' => '4096',
+              '--nicpromisc4' => 'allow-all',
+              '--cpus' => '4'
             }
         ],
     },

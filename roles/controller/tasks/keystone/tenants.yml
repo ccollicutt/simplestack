@@ -37,14 +37,6 @@
     password={{ keystone_admin_user_password }}
     endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
 
-- name: create ec2 service keystone user
-  keystone_user: >
-    token={{ keystone_admin_token }}
-    user=ec2
-    tenant=service
-    password={{ keystone_generic_service_password }}
-    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
-
 - name: create test keystone user
   keystone_user: >
     token={{ keystone_admin_token }}
@@ -63,12 +55,4 @@
     role={{ keystone_admin_role }}
     user={{ keystone_admin_user }}
     tenant={{ keystone_admin_tenant }}
-    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
-
-- name: add keystone admin to admin role
-  keystone_user: >
-    token={{ keystone_admin_token }}
-    role={{ keystone_admin_role }}
-    user=ec2
-    tenant=service
     endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"

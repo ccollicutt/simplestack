@@ -16,16 +16,3 @@
     region={{ keystone_region }}
     token={{ keystone_admin_token }}
     endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
-
-- name: create EC2 compatability keystone service
-  keystone_service: >
-    insecure=yes
-    name=ec2
-    type=ec2
-    description="EC2 Compatability Layer"
-    publicurl=https://{{ keystone_external_ip }}:10004/services/Cloud
-    internalurl=http://{{ keystone_internal_ip }}:10004/services/Cloud
-    adminurl=http://{{ keystone_internal_ip }}:10004/services/Admin
-    region={{ keystone_region }}
-    token={{ keystone_admin_token }}
-    endpoint="https://{{ keystone_internal_ip }}:35357/v2.0"
