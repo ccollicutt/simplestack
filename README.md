@@ -175,3 +175,4 @@ There are a few other write ups of the flat network:
 * [OpenStack Havan Flat Networking](http://behindtheracks.com/2013/12/openstack-havana-flat-networking/)
 * The [example architecture document](http://docs.openstack.org/openstack-ops/content/example_architecture.html) kinda gets into it
 * A [nova.conf configuration example](http://docs.openstack.org/juno/config-reference/content/section_compute-config-samples.html)
+* [Why does nova need a public interface?](http://askubuntu.com/questions/118408/why-does-nova-need-a-public-interface)

@@ -7,6 +7,7 @@ packages:
   - nova-conductor
   - nova-api-metadata
   - nova-network
+  - rsyslog
 
 nova_compute_services:
   - nova-compute

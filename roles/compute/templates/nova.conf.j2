@@ -9,6 +9,9 @@ libvirt_use_virtio_for_bridges=True
 connection_type=libvirt
 root_helper=sudo nova-rootwrap /etc/nova/rootwrap.conf
 verbose=True
+debug = True
+use_syslog = True
+syslog_log_facility = LOG_LOCAL0
 rpc_backend = nova.rpc.impl_kombu
 rabbit_host = {{ keystone_internal_ip }}
 
@@ -46,7 +49,7 @@ force_dhcp_release = True
 flat_network_bridge = br100
 # FIXME: correct interfaces?
 flat_interface = {{ flat_interface }}
-public_interface = {{ flat_interface }}
+public_interface = {{ public_interface }}
 
 vif_plugging_is_fatal: false
 vif_plugging_timeout: 0

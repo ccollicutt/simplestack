@@ -59,14 +59,13 @@
 
   - name: setup initial network
     shell: . /home/vagrant/adminrc && nova --insecure \
-     network-create flatnet \
-     --bridge br100 \
-     --multi-host T \
-     --fixed-range-v4 192.168.99.0/24 \
-     --allowed-start 192.168.99.40 \
-     --allowed-end 192.168.99.60 \
-     --gateway 192.168.99.1
-     #--fixed-range-v4 192.168.99.32/27
+      network-create flatnet \
+      --bridge br100 \
+      --multi-host T \
+      --fixed-range-v4 192.168.99.0/24 \
+      --gateway 192.168.99.1
+      --allowed-start 192.168.99.40 \
+      --allowed-end 192.168.99.60
     when: demo_net.rc != 0
 
   - name: check if default secgroup has icmp allowed

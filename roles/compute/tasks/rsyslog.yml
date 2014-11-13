@@ -1,0 +1,20 @@
+---
+
+- name: install rsyslog nova configuration
+  template: >
+    src=rsyslog.conf.j2
+    dest=/etc/rsyslog.conf
+    owner=root
+    group=root
+    mode=0644
+  register: rsyslog_conf
+
+- file: >
+    path=/etc/rsyslog.conf.d/60-nova.conf
+    state=absent
+
+- name: restart rsyslog when configuration changes
+  service: >
+    name=rsyslog
+    state=restarted
+  when: rsyslog_conf.changed

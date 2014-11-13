@@ -5,3 +5,13 @@
 timezone_area: America
 timezone_city: Edmonton
 time_server: ntp.ubuntu.com
+
+#
+# Nova used on both compute and controller
+#
+
+nova_mysql_password: CHANGEME
+
+
+nova_admin_user: nova
+nova_admin_user_password: CHANGEME

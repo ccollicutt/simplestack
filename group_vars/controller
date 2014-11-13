@@ -32,11 +32,3 @@ keystone_test_user_password: CHANGEME
 glance_mysql_password: CHANGEME
 glance_admin_user: glance
 glance_admin_user_password: CHANGEME
-
-#
-# Nova
-#
-
-nova_mysql_password: CHANGEME
-nova_admin_user: nova
-nova_admin_user_password: CHANGEME

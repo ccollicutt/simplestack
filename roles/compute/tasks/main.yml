@@ -1,12 +1,4 @@
-- name: ensure sysctl is appropriately configured
-  sysctl:
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
-    state: present
-  with_items:
-    - { name: net.ipv4.ip_forward, value: 1 }
-    - { name: net.ipv4.conf.all.rp_filter, value: 0 }
-    - { name: net.ipv4.conf.default.rp_filter, value: 0 }
+---
 
 - name: ensure required packages are installed
   apt: >
@@ -16,38 +8,6 @@
     cache_valid_time=3600
   with_items: packages
 
-- name: install nova configuration files from template
-  template: >
-    src={{ item }}.j2
-    dest=/etc/nova/{{ item }}
-    owner=nova
-    group=nova
-    mode=0644
-  register: nova_conf
-  with_items:
-    - nova.conf
-    - nova-compute.conf
-
-- name: restart nova services
-  service: >
-    name={{ item }}
-    state=restarted
-  when: nova_conf.changed
-  with_items: nova_compute_services
-
-- name: ensure nova services are running
-  service: >
-    name={{ item }}
-    state=running
-    enabled=yes
-  with_items: nova_compute_services
-
-# FIXME: wait for ports?
-- name: pause for nova services
-  pause: seconds=5
-  when: nova_conf.changed
-
-- name: ensure nova sqlite is deleted
-  file: >
-    dest=/var/lib/nova/nova.sqlite
-    state=absent
+- include: networking.yml
+- include: rsyslog.yml
+- include: nova.yml

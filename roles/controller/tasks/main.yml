@@ -8,14 +8,13 @@
     cache_valid_time=3600
   with_items: packages
 
+- include: rsyslog.yml
+- include: rabbitmq/main.yml
+- include: haproxy/main.yml
+- include: mysql-server.yml
+
 # OpenStack rc files
 - include: rc-files.yml
-
-- include: rabbitmq/main.yml
-
-- include: haproxy/main.yml
-
-- include: mysql-server.yml
 
 - include: keystone/configure.yml
 - include: keystone/db.yml
