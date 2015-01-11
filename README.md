@@ -13,8 +13,8 @@ It does not use Neutron, so "legacy" nova-network, and uses flat dhcp. Cinder is
 
 Requirements:
 
-* Vagrant
-* Base trusty box
+* Two or three servers (usuall vagrant virtual machines)
+* Trusty 14.04
 
 ```bash
 curtis$ vagrant box add ubuntu/trusty64
@@ -27,7 +27,7 @@ I'm using the ```vagrant-cachier``` plugin, but you don't have to; could comment
 ### Clone this repo
 
 ```bash
-curtis$ git clone git@github.com:ccollicutt/ansible-openstack-juno.git
+curtis$ git clone git@github.com:ccollicutt/simplestack.git
 ```
 
 ### Edit files
