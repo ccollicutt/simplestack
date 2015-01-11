@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.2
+
+* Updated instructions
+* Make vm requirements a bit smaller, because even though I have a new laptop it doesn't have as much memory as my last one
+
 ## v0.2.1
 
 * Configured syslog on compute nodes to send to controller
