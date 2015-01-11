@@ -44,19 +44,13 @@ There is also a section in the ```site.yml``` file that sets a couple of ansible
 
 I use [these great modules](https://github.com/openstack-ansible). I've never been comfortable with git submodules and the like, so they have to be manually installed.
 
+I had to make one small change to the glance module so that is why I'm pulling from my own repo as opposed to the official one. I hope to push that change back upstream as soon as I can find out if it's a good change.
+
 ```bash
 curtis$ cd simplestack
 curtis$ mkdir library
 curtis$ cd library
-curtis$ git clone https://github.com/openstack-ansible/openstack-ansible-modules.git
-```
-
-Then install OpenStack clients client locally.
-
-```bash
-curtis$ sudo apt-get install python-dev
-curtis$ sudo pip install python-novaclient
-curtis$ sudo pip install python-glanceclient
+curtis$ git clone https://github.com/ccollicutt/openstack-ansible-modules.git
 ```
 
 ### Run the playbook
