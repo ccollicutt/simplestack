@@ -45,7 +45,7 @@ There is also a section in the ```site.yml``` file that sets a couple of ansible
 I use [these great modules](https://github.com/openstack-ansible). I've never been comfortable with git submodules and the like, so they have to be manually installed.
 
 ```bash
-curtis$ cd ansible-openstack-juno
+curtis$ cd simplestack
 curtis$ mkdir library
 curtis$ cd library
 curtis$ git clone https://github.com/openstack-ansible/openstack-ansible-modules.git

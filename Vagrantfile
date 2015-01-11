@@ -12,7 +12,7 @@ boxes = [
         :flatip => '192.168.99.11',
         :box => 'ubuntu/trusty64',
         :vbox_config => [
-            { '--memory' => '2048' }
+            { '--memory' => '1536' }
         ],
     },
     {
@@ -23,7 +23,7 @@ boxes = [
         :box => 'ubuntu/trusty64',
         :vbox_config => [
             {
-              '--memory' => '4096',
+              '--memory' => '1536',
               '--nicpromisc4' => 'allow-all',
               '--cpus' => '4'
             }
@@ -37,7 +37,7 @@ boxes = [
         :box => 'ubuntu/trusty64',
         :vbox_config => [
             {
-              '--memory' => '4096',
+              '--memory' => '1536',
               '--nicpromisc4' => 'allow-all',
               '--cpus' => '4'
             }
@@ -54,6 +54,11 @@ Vagrant.configure("2") do |config|
     end
 
     boxes.each do |opts|
+        # newer versions of vagrant don't use the insecure
+        # key and instead add a key for each node which
+        # doesn't work that well for this project b/c of the
+        # way I use ansible, ie. not from the Vagrantfile.
+        config.ssh.insert_key = false
         config.vm.define opts[:name] do |config|
             # Box basics
             config.vm.hostname = opts[:name]

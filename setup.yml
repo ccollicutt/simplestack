@@ -38,7 +38,7 @@
   # A 512MB with 1 cpu and 10 gb of disk, id of 6
   - name: create a modest flavor
     shell: . /home/vagrant/adminrc && nova --insecure \
-      flavor-create m1.modest 6 512 10 1
+      flavor-create m1.modest 6 128 10 1
     when: modest_flavor.rc != 0
 
   - name: install cirros image
@@ -48,7 +48,7 @@
       --is-public true \
       --container-format bare \
       --disk-format qcow2 \
-      --file /vagrant/cirros-0.3.0-x86_64-disk.img
+      --file /vagrant/cirros-0.3.3-x86_64-disk.img
     when: cirros_image.rc != 0
 
   - name: check if flatnet is already installed
